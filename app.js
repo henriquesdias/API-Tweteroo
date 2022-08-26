@@ -16,7 +16,12 @@ server.get("/tweets", (req, res) => {
 server.post("/sign-up", (req, res) => {
   const user = req.body;
   users.push(user);
-  res.send(users);
+  res.send("OK");
+});
+server.post("/tweets", (req, res) => {
+  const tweet = req.body;
+  tweets.push(tweet);
+  res.send("OK");
 });
 server.listen(5000, () => {
   console.log("Listening on port 5000");
