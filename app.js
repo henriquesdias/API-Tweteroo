@@ -3,14 +3,18 @@ import cors from "cors";
 
 const server = express();
 server.use(express.json());
-
+server.use(cors());
 const tweets = [];
 const users = [];
 
 server.get("/tweets", (req, res) => {
-  const infoUsers = [...users];
-  infoUsers.reverse();
-  res.send(infoUsers.filter((e, index) => index <= 9));
+  const infoTweets = [...tweets];
+  infoTweets.reverse();
+  infoTweets.forEach(
+    (elem) =>
+      (elem.avatar = users.find((e) => e.username === elem.username).avatar)
+  );
+  res.send(infoTweets.filter((e, index) => index <= 9));
 });
 
 server.post("/sign-up", (req, res) => {
