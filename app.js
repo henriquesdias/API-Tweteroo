@@ -23,7 +23,7 @@ server.post("/sign-up", (req, res) => {
     return res.status(400).send("Todos os campos são obrigatórios");
   }
   users.push(user);
-  res.send("OK");
+  return res.send("OK").status(201);
 });
 server.post("/tweets", (req, res) => {
   const tweet = req.body;
@@ -31,7 +31,7 @@ server.post("/tweets", (req, res) => {
     return res.status(400).send("Todos os campos são obrigatórios");
   }
   tweets.push(tweet);
-  res.send("OK");
+  return res.send("OK").status(201);
 });
 server.listen(5000, () => {
   console.log("Listening on port 5000");
