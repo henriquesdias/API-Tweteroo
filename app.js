@@ -16,6 +16,17 @@ server.get("/tweets", (req, res) => {
   );
   res.send(infoTweets.filter((e, index) => index <= 9));
 });
+server.get("/tweets/:USERNAME", (req, res) => {
+  const infoTweets = [...tweets].filter(
+    (e) => e.username === req.params.USERNAME
+  );
+  infoTweets.reverse();
+  infoTweets.forEach(
+    (elem) =>
+      (elem.avatar = users.find((e) => e.username === elem.username).avatar)
+  );
+  res.send(infoTweets.filter((e, index) => index <= 9));
+});
 
 server.post("/sign-up", (req, res) => {
   const user = req.body;
@@ -23,7 +34,7 @@ server.post("/sign-up", (req, res) => {
     return res.status(400).send("Todos os campos são obrigatórios");
   }
   users.push(user);
-  return res.send("OK").status(201);
+  return res.status(201).send("OK");
 });
 server.post("/tweets", (req, res) => {
   const tweet = req.body;
