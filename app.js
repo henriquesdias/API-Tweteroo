@@ -19,11 +19,17 @@ server.get("/tweets", (req, res) => {
 
 server.post("/sign-up", (req, res) => {
   const user = req.body;
+  if (!user.username || !user.avatar) {
+    return res.status(400).send("Todos os campos são obrigatórios");
+  }
   users.push(user);
   res.send("OK");
 });
 server.post("/tweets", (req, res) => {
   const tweet = req.body;
+  if (!tweet.username || !tweet.tweet) {
+    return res.status(400).send("Todos os campos são obrigatórios");
+  }
   tweets.push(tweet);
   res.send("OK");
 });
