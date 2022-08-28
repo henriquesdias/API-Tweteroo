@@ -37,8 +37,9 @@ server.post("/sign-up", (req, res) => {
   return res.status(201).send("OK");
 });
 server.post("/tweets", (req, res) => {
-  const tweet = req.body;
-  if (!tweet.username || !tweet.tweet) {
+  const user = req.headers.user;
+  const tweet = req.body.tweet;
+  if (!user || !tweet) {
     return res.status(400).send("Todos os campos são obrigatórios");
   }
   tweets.push(tweet);
