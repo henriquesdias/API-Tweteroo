@@ -25,6 +25,9 @@ server.get("/tweets", (req, res) => {
   res.send("Informe uma paǵina válida!").status(400);
 });
 server.get("/tweets/:USERNAME", (req, res) => {
+  if (users.filter((e) => e.username === req.params.USERNAME).length === 0) {
+    return res.status(400).send("Usuário não encontrado");
+  }
   const infoTweets = [...tweets].filter(
     (e) => e.username === req.params.USERNAME
   );
@@ -40,6 +43,9 @@ server.post("/sign-up", (req, res) => {
   const user = req.body;
   if (!user.username || !user.avatar) {
     return res.status(400).send("Todos os campos são obrigatórios");
+  }
+  if (user.avatar.slice(0, 8) !== "https://") {
+    return res.status(400).send("Informe um formato válido de imagem");
   }
   users.push(user);
   res.status(201).send("OK");
